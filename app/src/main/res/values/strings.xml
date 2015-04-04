@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Master App</string>
+
+    <!-- Drawer -->
+    <string name="drawer_header">Master App</string>
+    <string name="drawer_header_sub">Developed by Pedro Simão</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="drawer_selection_0">Home</string>
+    <string name="drawer_selection_1">SQLite</string>
+
+    <!-- Menu -->
+    <string name="action_about">About</string>
+
+    <!-- Home -->
+    <string name="home_title">Welcome to Master App!</string>
+    <string name="home_body">This is an app that has some functional examples to help who needs.</string>
+</resources>
