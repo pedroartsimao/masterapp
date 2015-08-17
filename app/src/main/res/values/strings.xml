@@ -6,8 +6,14 @@
     <string name="drawer_header_sub">Developed by Pedro Simão</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="drawer_selection_empty">No fragment for this option...</string>
     <string name="drawer_selection_0">Home</string>
     <string name="drawer_selection_1">SQLite</string>
+    <string name="drawer_selection_2">Butter Knife</string>
+    <string name="drawer_selection_3">Otto</string>
+    <string name="drawer_selection_4">Dagger 2</string>
+    <string name="drawer_selection_5">Retrofit</string>
+    <string name="drawer_selection_6">Maps</string>
 
     <!-- Menu -->
     <string name="action_about">About</string>
@@ -15,4 +21,20 @@
     <!-- Home -->
     <string name="home_title">Welcome to Master App!</string>
     <string name="home_body">This is an app that has some functional examples to help who needs.</string>
+
+    <!-- Retrofit -->
+    <string name="retrofit_api">http://api.openweathermap.org/data/2.5/weather</string>
+    <string name="retrofit_input_title">Input</string>
+    <string name="retrofit_hint">City,State</string>
+    <string name="retrofit_answer_title">Output</string>
+    <string name="retrofit_answer_waiting_click">Waiting click...</string>
+    <string name="retrofit_answer_waiting">Waiting answer...</string>
+
+    <!-- Default -->
+    <string name="default_title">Lorem Ipsum</string>
+    <string name="default_body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla suscipit rutrum quam id congue. Pellentesque sit amet tempus ex. Duis tempor ex quis est porta, eget hendrerit dui ullamcorper. Proin orci leo, scelerisque nec finibus venenatis, fermentum vel nibh. Suspendisse iaculis, dui eu aliquet posuere, tellus metus porta lacus, a dignissim mauris odio quis enim. Nullam viverra risus mauris, at interdum ex tempor id. Aliquam in lectus in magna dignissim condimentum. Cras ac consectetur arcu. Phasellus ex mi, posuere non sapien id, fermentum ultrices ipsum. Nulla maximus cursus risus, ut bibendum mi malesuada et. Morbi vitae lacus et magna mattis porttitor. Nam ultrices quam nec purus lobortis rhoncus. Fusce a nisl placerat, ornare mauris eu, vulputate tellus. Aenean odio risus, posuere quis sollicitudin sed, efficitur ac erat. Fusce vehicula eros sed lorem vestibulum, vitae mollis odio finibus. Ut vel nisl sem.
+
+Mauris vehicula mauris elit, placerat sagittis urna consequat sed. Nullam ligula urna, ultricies sit amet ipsum eu, rutrum dapibus massa. Praesent luctus velit eget mauris cursus, vel lacinia libero ultrices. Morbi pellentesque finibus augue ut cursus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque accumsan, est id ultricies elementum, lectus dui aliquet mauris, gravida congue diam ligula imperdiet mi. Maecenas tincidunt nulla vel nisi congue, a lobortis libero pretium. Ut non mi pretium, tristique ex nec, tincidunt elit. Phasellus maximus libero eget ligula condimentum pulvinar. In at ante varius, mollis quam a, commodo nulla. Sed finibus malesuada pharetra. Sed ac diam justo. Nam id justo id nisl blandit hendrerit a ac justo. Maecenas congue magna hendrerit nunc iaculis, a mattis elit pretium. Aenean vel libero in orci mollis posuere et sed velit. Integer arcu est, auctor a lobortis id, malesuada id orci.
+
+Suspendisse potenti. Curabitur vitae vehicula odio. Proin sit amet mattis leo. Vivamus et quam urna. Sed scelerisque interdum dolor id accumsan. Aliquam erat volutpat. Sed condimentum tincidunt orci non mattis. Integer finibus porttitor tincidunt. Quisque convallis sem ut nisl pellentesque, sit amet euismod justo ornare. Nullam non bibendum enim. Mauris et pretium nibh, vitae feugiat eros.</string>
 </resources>

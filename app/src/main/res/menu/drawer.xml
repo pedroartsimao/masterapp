@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/mi_home"
+            android:checked="true"
+            android:title="@string/drawer_selection_0"/>
+        <item
+            android:id="@+id/mi_sqlite"
+            android:title="@string/drawer_selection_1"/>
+        <item
+            android:id="@+id/mi_butterknife"
+            android:title="@string/drawer_selection_2"/>
+        <item
+            android:id="@+id/mi_otto"
+            android:title="@string/drawer_selection_3"/>
+        <item
+            android:id="@+id/mi_dagger2"
+            android:title="@string/drawer_selection_4"/>
+        <item
+            android:id="@+id/mi_retrofit"
+            android:title="@string/drawer_selection_5"/>
+        <item
+            android:id="@+id/mi_maps"
+            android:title="@string/drawer_selection_6"/>
+        <!--
+        <item
+            android:id="@+id/navigation_subheader"
+            android:title="Item 3">
+            <menu>
+                <item
+                    android:id="@+id/navigation_sub_item_1"
+                    android:icon="@drawable/ic_media_pause"
+                    android:title="Sub Item 1"/>
+                <item
+                    android:id="@+id/navigation_sub_item_2"
+                    android:icon="@drawable/ic_media_pause"
+                    android:title="Sub Item 2"/>
+            </menu>
+        </item>
+        -->
+    </group>
+
+</menu>

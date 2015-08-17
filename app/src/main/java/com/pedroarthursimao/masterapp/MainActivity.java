@@ -1,81 +1,132 @@
 package com.pedroarthursimao.masterapp;
 
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
-import com.pedroarthursimao.masterapp.drawer.NavigationDrawerFragment;
+import com.pedroarthursimao.masterapp.butterknife.ButterKnifeFragment;
+import com.pedroarthursimao.masterapp.dagger2.Dagger2Fragment;
+import com.pedroarthursimao.masterapp.maps.MapsFragment;
+import com.pedroarthursimao.masterapp.otto.OttoFragment;
+import com.pedroarthursimao.masterapp.retrofit.RetrofitFragment;
+import com.pedroarthursimao.masterapp.sqlite.SQLiteFragment;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
-public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private NavigationDrawerFragment mNavigationDrawerFragment;
+    private static final String STATE_SELECTED_MENU_ID = "STATE_SELECTED_MENU_ID";
+    private static final String SP_SYSTEM = "SP_SYSTEM";
+    private static final String DRAWER_INTRODUCE = "DRAWER_INTRODUCE";
+
+    private static int currentMenuId = 0;
+
+    @Bind(R.id.drawerLayout)
+    DrawerLayout drawerLayout;
+    @Bind(R.id.navigationView)
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
-    }
-
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = null;
-        switch (position) {
-            case 0:
-                fragment = new HomeFragment();
-                break;
-            case 1:
-                fragment = new SQLiteFragment();
-                break;
+        ButterKnife.bind(this);
+        setUpNavView();
+        if (savedInstanceState != null) {
+            currentMenuId = savedInstanceState.getInt(STATE_SELECTED_MENU_ID, R.id.mi_home);
+        } else {
+            currentMenuId = R.id.mi_home;
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.push_down_in, R.anim.push_down_out)
+                    .replace(R.id.container, new HomeFragment())
+                    .commit();
         }
-        fragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.push_down_in, R.anim.push_down_out)
-                .replace(R.id.container, fragment)
-                .commit();
-
+        navigationView.getMenu().findItem(currentMenuId).setChecked(true);
+        introduceDrawer();
     }
 
-    public void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            getMenuInflater().inflate(R.menu.main, menu);
-            restoreActionBar();
-            return true;
+    private void setUpNavView() {
+        if (navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(this);
         }
-        return super.onCreateOptionsMenu(menu);
+    }
+
+    private void introduceDrawer() {
+        if (!getSharedPreferences(SP_SYSTEM, MODE_PRIVATE).getBoolean(DRAWER_INTRODUCE, false)) {
+            drawerLayout.openDrawer(GravityCompat.START);
+            getSharedPreferences(SP_SYSTEM, MODE_PRIVATE).edit().putBoolean(DRAWER_INTRODUCE, true).commit();
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        if (currentMenuId == menuItem.getItemId()) {
+            return true;
+        }
+        menuItem.setChecked(true);
+        drawerLayout.closeDrawers();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = getFragmentByMenu(menuItem.getItemId());
+        if (fragment != null) {
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.push_down_in, R.anim.push_down_out)
+                    .replace(R.id.container, fragment)
+                    .commit();
+            return true;
+        }
+        Snackbar.make(getCurrentFocus(), getString(R.string.drawer_selection_empty), Snackbar.LENGTH_LONG).show();
+        return false;
+    }
+
+    private Fragment getFragmentByMenu(int menuId) {
+        Fragment fragment = null;
+        switch (menuId) {
+            case R.id.mi_home:
+                fragment = new HomeFragment();
+                break;
+            case R.id.mi_sqlite:
+                fragment = new SQLiteFragment();
+                break;
+            case R.id.mi_butterknife:
+                fragment = new ButterKnifeFragment();
+                break;
+            case R.id.mi_otto:
+                fragment = new OttoFragment();
+                break;
+            case R.id.mi_dagger2:
+                fragment = new Dagger2Fragment();
+                break;
+            case R.id.mi_retrofit:
+                fragment = new RetrofitFragment();
+                break;
+            case R.id.mi_maps:
+                fragment = new MapsFragment();
+                break;
+        }
+        currentMenuId = (fragment != null) ? menuId : currentMenuId;
+        return fragment;
+    }
+
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(STATE_SELECTED_MENU_ID, currentMenuId);
+        super.onSaveInstanceState(outState);
+    }
 }
